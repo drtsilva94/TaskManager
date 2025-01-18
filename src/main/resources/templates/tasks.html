@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Task Manager</title>
+    <!-- Vinculação do arquivo CSS -->
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <form th:action="@{/tasks}" method="post">
+        <input type="text" name="title" placeholder="Task Title" required />
+        <textarea name="description" placeholder="Task Description"></textarea>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Task List</h2>
+    <div class="task-list" th:each="task : ${tasks}">
+        <p>
+            <strong th:text="${task.title}">Task Title</strong> -
+            <em th:text="${task.state}">Task State</em>
+        </p>
+        <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post">
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</body>
+</html>
